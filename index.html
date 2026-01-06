@@ -136,4 +136,43 @@
         });
     </script>
 </body>
+<script>
+        // 初始化圖示
+        lucide.createIcons();
+
+        // 👇👇👇 這裡就是你要貼網址的地方 (我已經幫你填好了) 👇👇👇
+        const WEBHOOK_URL = 'https://gbpcheck.zeabur.app/webhook-test/gap-seo-audit'; 
+
+        const form = document.getElementById('audit-form');
+        const formContainer = document.getElementById('form-container');
+        const successContainer = document.getElementById('success-container');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // 阻止表單預設跳轉
+
+            // 1. 取得資料
+            const url = document.getElementById('input-url').value;
+            const email = document.getElementById('input-email').value;
+
+            // 2. 核心邏輯：直接切換 UI (不用等後端回應)
+            formContainer.classList.add('hidden');
+            successContainer.classList.remove('hidden');
+
+            // 3. 背景發送資料 (Fire and Forget)
+            // 這裡我幫你改成了最簡單的邏輯：只要有網址，就發送！
+            if (WEBHOOK_URL) {
+                fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        google_maps_url: url,
+                        user_email: email
+                    })
+                }).catch(err => console.error('Background send error:', err));
+            } else {
+                console.warn('請記得設定 Webhook URL！');
+            }
+        });
+    </script>
+</body>
 </html>
