@@ -121,7 +121,7 @@
             successContainer.classList.remove('hidden');
 
             // 3. 背景發送資料 (Fire and Forget)
-            if (WEBHOOK_URL && WEBHOOK_URL !== 'https://gbpcheck.zeabur.app/webhook-test/gap-seo-audit') {
+            if (WEBHOOK_URL) {  // <--- 改成這樣就好，只要有網址就發送
                 fetch(WEBHOOK_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -131,7 +131,7 @@
                     })
                 }).catch(err => console.error('Background send error:', err));
             } else {
-                console.warn('http://:5678/webhook-test/gap-seo-audit');
+                console.warn('請記得設定 Webhook URL！');
             }
         });
     </script>
